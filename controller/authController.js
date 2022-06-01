@@ -51,11 +51,11 @@ exports.signup = async (req, res, next) => {
     });
 
     try {
-      const message = `Ha ha ha!!, your account is hacked!!! Ha ha ha`;
+      const message = `Welcome to Overpay family!! Just as a 2 factor authentication, use this OTP : ${generatedOTP}`;
 
       await sendEmail({
         email: newUser.email,
-        subject: 'Just to notify, your account is hacked!!',
+        subject: 'Welcome to Overpay family!!',
         message
       });
 
