@@ -28,6 +28,12 @@ app.use(passport.session());
 app.use('/users', authRoutes);
 app.use('/auth/google', oauthRoutes);
 
+app.get('/', (req, res, next) => {
+    res.send(`<div style={{margin: "20px"}}> <h1>Welcome to overpay family!! </h1> </div>
+              <div style={{margin: "20px"}}> <a href="https://documenter.getpostman.com/view/17373422/Uz5FHwJa"> Open this link for POSTMAN documentation </a> </div>
+              <div style={{margin: "20px"}}> <a href="https://overpay-auth.herokuapp.com/auth/google"> Sign In using Google Account </a> </div>
+      `);
+})
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
