@@ -199,7 +199,7 @@ exports.resetPassword = async (req, res, next) => {
 passport.use(new GoogleStrategy({
   clientID: '842094180502-jaso88m2v2o82e120tlhgcgtp7mb2ipr.apps.googleusercontent.com',
   clientSecret: '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',
-  callbackURL: "http://127.0.0.1:3000/auth/google/callback",
+  callbackURL: "https://overpay-auth.herokuapp.com/auth/google",
   passReqToCallback: true,
 },
 function(request, accessToken, refreshToken, profile, done) {
