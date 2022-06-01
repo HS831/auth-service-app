@@ -1,12 +1,18 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
-const dotenv = require('dotenv');
+const otpGenerator = require('otp-generator');
 
 const sendEmail = require('../utils/email');
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 
+
+const OTP_CONFIG = {
+  digits: true
+}
+
+const OTP = otpGenerator.generate(4, OTP_CONFIG);
 
 
 const signtoken = id => {
@@ -34,14 +40,36 @@ const createToken = (user,  statusCode, res) => {
 
 
 exports.signup = async (req, res, next) => {
+    const generatedOTP = OTP;
     const newUser = await User.create({
         firstName : req.body.firstName,
         lastName : req.body.lastName,
         email : req.body.email,
         password : req.body.password,
         passwordConfirm : req.body.passwordConfirm,
-    })
-   createToken(newUser, 201, res);
+        otp : generatedOTP
+    });
+
+    try {
+      const message = `Welcome to Overpay family! Just as a two factor authentication, enter this OTP to verify your email!!  OTP : ${generatedOTP}`;
+
+      await sendEmail({
+        email: newUser.email,
+        subject: 'Verify your email with OTP (valid for 1 min)',
+        message
+      });
+
+      createToken(newUser, 201, res);
+     // return next(newUser);
+    }
+    catch(err) {
+      res.status(500).json({
+        status : 'fail',
+        message : 'There was an error sending the email. Try again later!'
+      });
+
+      //return next();
+    }
 };
 
 exports.signin = async (req, res, next) => {
@@ -69,28 +97,27 @@ exports.signin = async (req, res, next) => {
     createToken(user, 200, res);
 };
 
-// exports.verifyEmail = async (req, res, next) => {
-//    const otp = req.body.otp;
-//    if(!otp) {
-//      res.status(400).json({
-//        status: 'fail',
-//        message : 'Enter your OTP'
-//      })
+exports.verifyEmail = async (req, res, next) => {
+  const { email, otp } = req.body;
+  const user = await User.findOne({email}).select('+otp');
+  if(!user) {
+    res.status(400).json({
+      status: 'fail',
+      message: 'User with this email does not exist!'
+    })
+  }
+  
+  if(otp !== user.otp) {
+    res.status(400).json({
+      status: 'fail',
+      message: 'Invalid or Wrong OTP'
+    })
+  }
 
-//      return next();
-//    }
 
-//    if(otp !== '999999') {
-//     res.status(400).json({
-//       status: 'fail',
-//       message : 'OTP is wrong!!'
-//     })
+  createToken(user, 201, res);
 
-//     return next();
-//    }
-
-//    createToken()
-// }
+}
 
 exports.forgotPassword = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
