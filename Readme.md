@@ -1,8 +1,5 @@
 # Overpay-Auth
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
-
-
 ## APIs List : 
 
 - POST users/signup: Register New User
@@ -37,8 +34,5 @@ Step 3 : Install the dependencies and devDependencies and start the server using
 Step 4 : npm run dev : For development enviorments
 ```
 The local server will start at 127.0.0.1:3000/
-
-### This Project is also deployed on heroku
-### Heroku Link : https://overpay-auth.herokuapp.com/
 
 
