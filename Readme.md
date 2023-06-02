@@ -41,5 +41,5 @@ The local server will start at 127.0.0.1:3000/
 
 
 ### Postman Documentation Link
-[Postman Documentation](https://documenter.getpostman.com/view/17373422/2s93sW7aJu")
+[Postman Documentation](https://documenter.getpostman.com/view/17373422/2s93sW7aJu)
 
