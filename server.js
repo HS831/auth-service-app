@@ -31,7 +31,7 @@ app.use('/auth/google', oauthRoutes);
 app.get('/', (req, res, next) => {
     res.send(`<div style={{margin: "20px"}}> <h1>Welcome to overpay family!! </h1> </div>
               <div style={{margin: "20px"}}> <a href="https://documenter.getpostman.com/view/17373422/Uz5FHwJa"> Open this link for POSTMAN documentation </a> </div>
-              <div style={{margin: "20px"}}> <a href="http://127.0.0.1:3000/auth/google"> Sign In using Google Account </a> </div>
+              <div style={{margin: "20px"}}> <a href="https://auth-service-7sg3.onrender.com/auth/google"> Sign In using Google Account </a> </div>
       `);
 })
 

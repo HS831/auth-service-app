@@ -56,11 +56,11 @@ exports.signup = async (req, res, next) => {
       await sendEmail({
         email: newUser.email,
         subject: 'Welcome to Auth Service Family!!',
-        message: 'Use this OTP to signup in your application'
+        message
       });
 
       createToken(newUser, 201, res);
-     // return next(newUser);
+     
     } 
     catch(err) {
       res.status(500).json({
@@ -68,7 +68,6 @@ exports.signup = async (req, res, next) => {
         message : err
       });
 
-      //return next();
     }
 };
 
@@ -199,7 +198,7 @@ exports.resetPassword = async (req, res, next) => {
 passport.use(new GoogleStrategy({
   clientID: '842094180502-jaso88m2v2o82e120tlhgcgtp7mb2ipr.apps.googleusercontent.com',
   clientSecret: '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',
-  callbackURL: "http://127.0.0.1:3000/auth/google",
+  callbackURL: "https://auth-service-7sg3.onrender.com/auth/google",
   passReqToCallback: true,
 },
 function(request, accessToken, refreshToken, profile, done) {
