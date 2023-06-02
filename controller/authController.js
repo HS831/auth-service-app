@@ -51,21 +51,21 @@ exports.signup = async (req, res, next) => {
     });
 
     try {
-      const message = `Welcome to Overpay family!! Just as a 2 factor authentication, use this OTP : ${generatedOTP}`;
+      const message = `Welcome to the Sample Application!! Just as a 2 factor authentication, use this OTP : ${generatedOTP}`;
 
       await sendEmail({
         email: newUser.email,
-        subject: 'Welcome to Overpay family!!',
-        message
+        subject: 'Welcome to Auth Service Family!!',
+        message: 'Use this OTP to signup in your application'
       });
 
       createToken(newUser, 201, res);
      // return next(newUser);
-    }
+    } 
     catch(err) {
       res.status(500).json({
         status : 'fail',
-        message : 'There was an error sending the email. Try again later!'
+        message : err
       });
 
       //return next();
@@ -137,7 +137,7 @@ exports.forgotPassword = async (req, res, next) => {
       const resetURL = `${req.protocol}://${req.get(
         'host'
       )}/users/resetPassword/${resetToken}`;
-    //   console.log(resetURL);
+   
       const message = `Forgot your password? Click on this link to reset your password: ${resetURL}.\nIf you didn't forget your password, please ignore this email!`;
 
       await sendEmail({
@@ -199,7 +199,7 @@ exports.resetPassword = async (req, res, next) => {
 passport.use(new GoogleStrategy({
   clientID: '842094180502-jaso88m2v2o82e120tlhgcgtp7mb2ipr.apps.googleusercontent.com',
   clientSecret: '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',
-  callbackURL: "https://overpay-auth.herokuapp.com/auth/google",
+  callbackURL: "http://127.0.0.1:3000/auth/google",
   passReqToCallback: true,
 },
 function(request, accessToken, refreshToken, profile, done) {
