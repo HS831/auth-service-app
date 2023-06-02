@@ -1,4 +1,4 @@
-# Overpay-Auth
+# Auth Service App
 
 ## APIs List : 
 
@@ -8,7 +8,7 @@
 - POST users/resetPassword/:token: Updates the New Password
 - POST users/verifyEmail: Verify the email account of user.
 
-## Tech
+## Tech-Stack Used
 
 Overpay-Auth uses a number of Libraries to work properly:
 
@@ -22,7 +22,7 @@ Overpay-Auth uses a number of Libraries to work properly:
 
 ## Installation
 
-Overpay-Auth requires [Node.js](https://nodejs.org/) v10+ to run.
+This application requires [Node.js](https://nodejs.org/) v10+ to run.
 
 ### Steps to run this project : 
 
